@@ -1,0 +1,32 @@
+{
+  "name": "my-stroke-lib",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/my-stroke-lib.cjs",
+  "module": "./dist/my-stroke-lib.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/my-stroke-lib.js",
+      "require": "./dist/my-stroke-lib.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.6",
+    "vite-plugin-dts": "^5.1.2"
+  }
+}
