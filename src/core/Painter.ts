@@ -36,6 +36,9 @@ export class Painter {
     if (computedStyle.position === "static") {
       element.style.position = "relative";
     }
+    if (computedStyle.isolation !== "isolate") {
+      element.style.isolation = "isolate";
+    }
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.style.position = "absolute";

@@ -8,7 +8,7 @@ export class HighlightStrategy implements StrokeStrategy {
     svg: SVGSVGElement,
     options: HighlightOptions,
   ): void {
-    const { opacity = 0.35, color = "#ffb3ba", heightRatio = 0.45 } = options;
+    const { opacity = 0.35, color = "#fcff46ff", heightRatio = 0.45 } = options;
     const { width, height } = target.getBoundingClientRect();
 
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);

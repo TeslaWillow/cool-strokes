@@ -11,4 +11,5 @@ export function attachStroke(
   return painterInstance.apply(element, variant, options);
 }
 
+export { HandDrawnRegistry } from "./strategies/HandDrawnStrategy";
 export * from "./types";
