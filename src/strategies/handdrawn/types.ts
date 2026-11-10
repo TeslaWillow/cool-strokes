@@ -16,5 +16,5 @@ export interface HandDrawnRenderContext {
 
 export interface HandDrawnStyleGenerator {
   generate(context: HandDrawnRenderContext): SVGElement[];
+  animate?(elements: SVGElement[], context: HandDrawnRenderContext): void;
 }
-

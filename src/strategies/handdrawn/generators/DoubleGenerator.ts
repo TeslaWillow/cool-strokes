@@ -3,6 +3,7 @@
 import { HandDrawnStyleGenerator, HandDrawnRenderContext } from "../types";
 import { buildOrganicLinePath } from "../helpers";
 import { createSvgElement } from "../../../utils/svg";
+import { Animator } from "../../../core/Animator";
 
 export class DoubleGenerator implements HandDrawnStyleGenerator {
   public generate(ctx: HandDrawnRenderContext): SVGElement[] {
@@ -57,5 +58,11 @@ export class DoubleGenerator implements HandDrawnStyleGenerator {
 
     return [path1, path2];
   }
-}
 
+  public animate(elements: SVGElement[], ctx: HandDrawnRenderContext): void {
+    const geomElements = elements.filter(
+      (el): el is SVGGeometryElement => el instanceof SVGGeometryElement,
+    );
+    Animator.animateSequence(geomElements, ctx.options, 0.2);
+  }
+}

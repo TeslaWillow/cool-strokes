@@ -1,5 +1,7 @@
 // ./src/strategies/UnderlineStrategy.ts
+
 import { StrokeStrategy, UnderlineOptions } from "../types";
+import { Animator } from "../core/Animator";
 
 export class UnderlineStrategy implements StrokeStrategy {
   public render(
@@ -7,7 +9,7 @@ export class UnderlineStrategy implements StrokeStrategy {
     svg: SVGSVGElement,
     options: UnderlineOptions,
   ): void {
-    const { color = "#3b82f6", strokeWidth = 4, gradient } = options;
+    const { color = "#3b82f6", strokeWidth = 4, gradient, animate = false } = options;
     const { width, height } = target.getBoundingClientRect();
 
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
@@ -49,8 +51,6 @@ export class UnderlineStrategy implements StrokeStrategy {
     }
 
     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-
-    // Posicionar la línea en el borde inferior del elemento
     const yPos = height - strokeWidth / 2;
 
     line.setAttribute("x1", "0");
@@ -62,5 +62,9 @@ export class UnderlineStrategy implements StrokeStrategy {
     line.setAttribute("stroke-linecap", "round");
 
     svg.appendChild(line);
+
+    if (animate) {
+      Animator.animateStroke(line, options);
+    }
   }
 }

@@ -3,6 +3,7 @@
 import { HandDrawnStyleGenerator, HandDrawnRenderContext } from "../types";
 import { buildOrganicLinePath } from "../helpers";
 import { createSvgElement } from "../../../utils/svg";
+import { Animator } from "../../../core/Animator";
 
 export class TripleGenerator implements HandDrawnStyleGenerator {
   public generate(ctx: HandDrawnRenderContext): SVGElement[] {
@@ -22,7 +23,7 @@ export class TripleGenerator implements HandDrawnStyleGenerator {
       samples,
     );
 
-    // Line 2: Flick backwards from right to ~15% from left
+    // Line 2: Flick backwards from right to ~10% from left
     const p2 = buildOrganicLinePath(
       width * 0.95,
       baseY,
@@ -59,5 +60,12 @@ export class TripleGenerator implements HandDrawnStyleGenerator {
 
     return elements;
   }
-}
 
+  public animate(elements: SVGElement[], ctx: HandDrawnRenderContext): void {
+    const geomElements = elements.filter(
+      (el): el is SVGGeometryElement => el instanceof SVGGeometryElement,
+    );
+    // Sequential drawing with small overlap: Line 1 (forward) -> Line 2 (back) -> Line 3 (forward)
+    Animator.animateSequence(geomElements, ctx.options, 0.12);
+  }
+}

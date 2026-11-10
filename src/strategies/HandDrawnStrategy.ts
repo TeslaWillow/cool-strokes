@@ -4,6 +4,7 @@ import { StrokeStrategy, HandDrawnOptions } from "../types";
 import { createRng } from "../utils/rng";
 import { HandDrawnRegistry } from "./handdrawn/HandDrawnRegistry";
 import { HandDrawnRenderContext } from "./handdrawn/types";
+import { Animator } from "../core/Animator";
 
 export class HandDrawnStrategy implements StrokeStrategy {
   public render(
@@ -17,6 +18,7 @@ export class HandDrawnStrategy implements StrokeStrategy {
       roughness = 2,
       seed,
       style = "single",
+      animate = false,
     } = options;
 
     const { width, height } = target.getBoundingClientRect();
@@ -43,6 +45,19 @@ export class HandDrawnStrategy implements StrokeStrategy {
 
     for (const el of elements) {
       svg.appendChild(el);
+    }
+
+    if (animate && elements.length > 0) {
+      if (typeof generator.animate === "function") {
+        generator.animate(elements, context);
+      } else if (elements.length === 1 && elements[0] instanceof SVGGeometryElement) {
+        Animator.animateStroke(elements[0], options);
+      } else {
+        const geomElements = elements.filter(
+          (el): el is SVGGeometryElement => el instanceof SVGGeometryElement,
+        );
+        Animator.animateSequence(geomElements, options);
+      }
     }
   }
 }

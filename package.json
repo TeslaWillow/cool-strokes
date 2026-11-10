@@ -2,13 +2,15 @@
   "name": "my-stroke-lib",
   "version": "1.0.0",
   "type": "module",
+  "description": "Vanilla JS & TypeScript library for customizable highlights, gradient underlines, and hand-drawn strokes",
   "main": "./dist/my-stroke-lib.cjs",
   "module": "./dist/my-stroke-lib.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
   },
   "exports": {
     ".": {
@@ -17,11 +19,18 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "keywords": [
+    "underline",
+    "highlight",
+    "stroke",
+    "svg",
+    "typescript",
+    "vanilla-js"
+  ],
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
+  "author": "Teslawillow",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^26.6.6",

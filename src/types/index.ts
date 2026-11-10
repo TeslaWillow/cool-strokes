@@ -12,12 +12,42 @@ export type HandDrawnStyle =
   | "loop-knot"
   | "wavy"
   | "dashed"
-  | "scribble";
+  | "scribble"
+  | "strike";
 
 export interface BaseStrokeOptions {
   color?: string;
   strokeWidth?: number;
   className?: string;
+
+  /**
+   * Whether to animate the stroke drawing in real-time.
+   * @default false
+   */
+  animate?: boolean;
+
+  /**
+   * Animation duration in milliseconds.
+   * @default 800
+   */
+  duration?: number;
+
+  /**
+   * Alias for `duration`.
+   */
+  animationDuration?: number;
+
+  /**
+   * Delay before the animation starts, in milliseconds.
+   * @default 0
+   */
+  delay?: number;
+
+  /**
+   * CSS easing function or cubic-bezier.
+   * @default "cubic-bezier(0.4, 0, 0.2, 1)"
+   */
+  easing?: string;
 }
 
 export interface HighlightOptions extends BaseStrokeOptions {

@@ -2,6 +2,7 @@
 
 import { HandDrawnStyleGenerator, HandDrawnRenderContext } from "../types";
 import { createSvgElement } from "../../../utils/svg";
+import { Animator } from "../../../core/Animator";
 
 export class DashedGenerator implements HandDrawnStyleGenerator {
   public generate(ctx: HandDrawnRenderContext): SVGElement[] {
@@ -41,5 +42,11 @@ export class DashedGenerator implements HandDrawnStyleGenerator {
 
     return elements;
   }
-}
 
+  public animate(elements: SVGElement[], ctx: HandDrawnRenderContext): void {
+    const geomElements = elements.filter(
+      (el): el is SVGGeometryElement => el instanceof SVGGeometryElement,
+    );
+    Animator.animateDashes(geomElements, ctx.options);
+  }
+}

@@ -2,6 +2,7 @@
 
 import { HandDrawnStyleGenerator, HandDrawnRenderContext } from "../types";
 import { createSvgElement } from "../../../utils/svg";
+import { Animator } from "../../../core/Animator";
 
 export class BrushGenerator implements HandDrawnStyleGenerator {
   public generate(ctx: HandDrawnRenderContext): SVGElement[] {
@@ -51,5 +52,12 @@ export class BrushGenerator implements HandDrawnStyleGenerator {
 
     return elements;
   }
-}
 
+  public animate(elements: SVGElement[], ctx: HandDrawnRenderContext): void {
+    const geomElements = elements.filter(
+      (el): el is SVGGeometryElement => el instanceof SVGGeometryElement,
+    );
+    // Brush strokes advance simultaneously with a tiny 30ms offset to simulate brush tip width
+    Animator.animateStaggered(geomElements, ctx.options, 30);
+  }
+}

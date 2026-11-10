@@ -4,6 +4,12 @@ import { HighlightStrategy } from "../strategies/HighlightStrategy";
 import { UnderlineStrategy } from "../strategies/UnderlineStrategy";
 import { HandDrawnStrategy } from "../strategies/HandDrawnStrategy";
 
+export interface StrokeController {
+  (): void;
+  destroy: () => void;
+  replay: () => void;
+}
+
 export class Painter {
   private strategies: Map<StrokeVariant, StrokeStrategy> = new Map();
   private observer: ResizeObserver;
@@ -28,10 +34,15 @@ export class Painter {
     element: HTMLElement,
     variant: StrokeVariant,
     options: AnyStrokeOptions = {},
-  ): () => void {
-    if (!element) return () => {};
+  ): StrokeController {
+    const noop: StrokeController = Object.assign(() => {}, {
+      destroy: () => {},
+      replay: () => {},
+    });
 
-    // Guard clause: Asegurar posicionamiento relativo del contenedor
+    if (!element) return noop;
+
+    // Guard clause: Asegurar posicionamiento relativo y contexto de apilamiento aislado
     const computedStyle = window.getComputedStyle(element);
     if (computedStyle.position === "static") {
       element.style.position = "relative";
@@ -54,22 +65,37 @@ export class Painter {
 
     element.appendChild(svg);
 
-    const renderStroke = () => {
+    const renderStroke = (isResize: boolean = false) => {
       const strategy = this.strategies.get(variant);
       if (!strategy) return;
-      strategy.render(element, svg, options);
+      // During dynamic window resize, render statically without replaying the full animation
+      const effectiveOptions =
+        isResize && options.animate ? { ...options, animate: false } : options;
+      strategy.render(element, svg, effectiveOptions);
     };
 
-    renderStroke();
+    renderStroke(false);
 
-    (element as any).__redrawStroke = renderStroke;
+    (element as any).__redrawStroke = () => renderStroke(true);
+    (element as any).__replayStroke = () => renderStroke(false);
     this.observer.observe(element);
 
-    // Retorna función de cleanup (para unmounts en React, Vue, Svelte, etc.)
-    return () => {
+    const destroy = () => {
       this.observer.unobserve(element);
       delete (element as any).__redrawStroke;
+      delete (element as any).__replayStroke;
       svg.remove();
     };
+
+    const replay = () => {
+      renderStroke(false);
+    };
+
+    const controller: StrokeController = Object.assign(destroy, {
+      destroy,
+      replay,
+    });
+
+    return controller;
   }
 }
