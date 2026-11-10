@@ -1,10 +1,10 @@
 {
-  "name": "my-stroke-lib",
+  "name": "cool-strokes",
   "version": "1.0.0",
   "type": "module",
   "description": "Vanilla JS & TypeScript library for customizable highlights, gradient underlines, and hand-drawn strokes",
-  "main": "./dist/my-stroke-lib.cjs",
-  "module": "./dist/my-stroke-lib.js",
+  "main": "./dist/cool-strokes.cjs",
+  "module": "./dist/cool-strokes.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
@@ -14,8 +14,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/my-stroke-lib.js",
-      "require": "./dist/my-stroke-lib.cjs",
+      "import": "./dist/cool-strokes.js",
+      "require": "./dist/cool-strokes.cjs",
       "types": "./dist/index.d.ts"
     }
   },
