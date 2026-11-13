@@ -1,0 +1,349 @@
+<!-- ./index.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cool-strokes — Live Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 3rem 1.5rem 5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        color: #0f172a;
+      }
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+      }
+      p.subtitle {
+        color: #64748b;
+        margin: 0;
+        font-size: 1.1rem;
+      }
+      .replay-btn {
+        background: #0f172a;
+        color: #ffffff;
+        border: none;
+        padding: 0.75rem 1.75rem;
+        border-radius: 9999px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.15s ease;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      }
+      .replay-btn:hover {
+        background: #334155;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+      }
+      .replay-btn:active {
+        transform: translateY(0);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1100px;
+        width: 100%;
+      }
+      .card {
+        background: white;
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.04),
+          0 2px 4px -2px rgb(0 0 0 / 0.04);
+        border: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        text-align: center;
+      }
+      .label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 1.65rem;
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        font-weight: 700;
+        isolation: isolate; /* Stacking safety */
+      }
+      footer {
+        margin-top: 2rem;
+        color: #94a3b8;
+        font-size: 0.875rem;
+      }
+      footer a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🎨 cool-strokes</h1>
+      <p class="subtitle">
+        Zero-dependency TypeScript library for responsive SVG annotations.
+      </p>
+      <button id="btn-replay" class="replay-btn">
+        <span>▶</span> Replay All Animations
+      </button>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <span class="label">Highlight</span>
+        <h2 id="s-highlight">Works & Articles</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Gradient Underline</span>
+        <h2 id="s-gradient">Gradient Underline</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Single</span>
+        <h2 id="hd-single">Single Stroke</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Double</span>
+        <h2 id="hd-double">Double Parallel</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Triple</span>
+        <h2 id="hd-triple">Triple Flourish</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Brush</span>
+        <h2 id="hd-brush">Marker Brush</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Zigzag</span>
+        <h2 id="hd-zigzag">Zigzag Energy</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Loopy (360°)</span>
+        <h2 id="hd-loopy">Loopy Curls</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Loop Knot</span>
+        <h2 id="hd-knot">Decorative Knot</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Dashed</span>
+        <h2 id="hd-dashed">Dashed Curve</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Scribble</span>
+        <h2 id="hd-scribble">Quick Scribble</h2>
+      </div>
+
+      <div class="card">
+        <span class="label">Hand-Drawn: Wavy</span>
+        <h2 id="hd-wavy">Smooth Wavy</h2>
+      </div>
+    </div>
+
+    <footer>
+      Built with
+      <a href="https://github.com/teslawillow/cool-strokes" target="_blank"
+        >cool-strokes</a
+      >
+      & Vite.
+    </footer>
+
+    <script type="module">
+      import { attachStroke } from "./src/index.ts";
+
+      const controllers = [];
+
+      controllers.push(
+        attachStroke(document.querySelector("#s-highlight"), "highlight", {
+          color: "#fef08a",
+          opacity: 0.65,
+          animate: true,
+          duration: 700,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#s-gradient"), "underline", {
+          gradient: ["#ec4899", "#8b5cf6", "#3b82f6"],
+          strokeWidth: 5,
+          animate: true,
+          duration: 800,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-single"), "hand-drawn", {
+          style: "single",
+          color: "#0f172a",
+          strokeWidth: 3,
+          roughness: 2,
+          seed: 12,
+          animate: true,
+          duration: 750,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-double"), "hand-drawn", {
+          style: "double",
+          color: "#0284c7",
+          strokeWidth: 2.5,
+          roughness: 2,
+          seed: 42,
+          animate: true,
+          duration: 900,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-triple"), "hand-drawn", {
+          style: "triple",
+          color: "#1e293b",
+          strokeWidth: 2.5,
+          roughness: 2.5,
+          seed: 99,
+          animate: true,
+          duration: 1100,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-brush"), "hand-drawn", {
+          style: "brush",
+          color: "#10b981",
+          strokeWidth: 5,
+          roughness: 2.5,
+          seed: 150,
+          animate: true,
+          duration: 850,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-zigzag"), "hand-drawn", {
+          style: "zigzag",
+          color: "#f97316",
+          strokeWidth: 3,
+          roughness: 2,
+          seed: 7,
+          animate: true,
+          duration: 900,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-loopy"), "hand-drawn", {
+          style: "loopy",
+          color: "#8b5cf6",
+          strokeWidth: 3,
+          roughness: 1.5,
+          seed: 55,
+          animate: true,
+          duration: 1200,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-knot"), "hand-drawn", {
+          style: "loop-knot",
+          color: "#ec4899",
+          strokeWidth: 3,
+          roughness: 1.8,
+          seed: 33,
+          animate: true,
+          duration: 950,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-dashed"), "hand-drawn", {
+          style: "dashed",
+          color: "#64748b",
+          strokeWidth: 3,
+          roughness: 2,
+          seed: 88,
+          animate: true,
+          duration: 800,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-scribble"), "hand-drawn", {
+          style: "scribble",
+          color: "#dc2626",
+          strokeWidth: 3,
+          roughness: 2.5,
+          seed: 14,
+          animate: true,
+          duration: 850,
+        }),
+      );
+
+      controllers.push(
+        attachStroke(document.querySelector("#hd-wavy"), "hand-drawn", {
+          style: "wavy",
+          color: "#06b6d4",
+          strokeWidth: 3,
+          roughness: 2,
+          seed: 67,
+          animate: true,
+          duration: 850,
+        }),
+      );
+
+      document.querySelector("#btn-replay").addEventListener("click", () => {
+        controllers.forEach((ctrl) => ctrl.replay());
+      });
+    </script>
+  </body>
+</html>

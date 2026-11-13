@@ -9,8 +9,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(import.meta.dirname, "src/index.ts"),
-      name: "MyStrokeLib",
-      fileName: (format) => `my-stroke-lib.${format === "es" ? "js" : "cjs"}`,
+      name: "CoolStrokes",
+      fileName: (format) => `cool-strokes.${format === "es" ? "js" : "cjs"}`,
       formats: ["es", "cjs"],
     },
     rollupOptions: {
