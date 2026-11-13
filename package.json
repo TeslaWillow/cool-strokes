@@ -9,10 +9,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:demo": "vite build --emptyOutDir=false",
+    "build:demo": "vite build --config vite.demo.config.ts",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "npm run build:demo && gh-pages -d dist-demo"
   },
   "exports": {
     ".": {
